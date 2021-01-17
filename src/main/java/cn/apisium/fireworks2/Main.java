@@ -45,16 +45,11 @@ public final class Main extends JavaPlugin implements Listener {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) return false;
         final Player player = (Player) sender;
-//        final Location center = player.getLocation().add(0, 10, 0);
-//        getServer().getScheduler().runTaskAsynchronously(this, () -> {
-//            try {
-//                for (int i = 0; i < 20; i++) {
-//                    Curves.sphericalHelix(center.clone().add(Math.random() * 80 - 40, 10 + Math.random() * 30, Math.random() * 80 - 40));
-//                    Thread.sleep(200);
-//                }
-//            } catch (Exception ignored) {}
-//        });
-        performance.start(player.getLocation().add(0, 10, 0));
+        try {
+            performance.start(player.getLocation().add(0, 10, 0));
+        } catch (IllegalStateException ignored) {} catch (Exception e) {
+            e.printStackTrace();
+        }
         return true;
     }
 }
