@@ -56,8 +56,10 @@ public final class Performance extends TimerTask {
     private static final FireworkEffect fw4 = FireworkEffect
             .builder()
             .flicker(true)
-            .withColor(Color.BLUE)
-            .withFade(Color.AQUA)
+            .withColor(Color.AQUA)
+            .withFade(Color.BLUE)
+            .withColor(Color.AQUA)
+            .withFade(Color.BLUE)
             .with(FireworkEffect.Type.BURST)
             .trail(false)
             .build();
@@ -80,6 +82,17 @@ public final class Performance extends TimerTask {
             .withFade(Color.AQUA)
             .withFade(Color.AQUA)
             .with(FireworkEffect.Type.BALL_LARGE)
+            .trail(true)
+            .build();
+    private static final FireworkEffect fw2Ball = FireworkEffect
+            .builder()
+            .flicker(true)
+            .withColor(Constants.PINK)
+            .withColor(Constants.PINK)
+            .withColor(Constants.PINK)
+            .withFade(Color.AQUA)
+            .withFade(Color.AQUA)
+            .with(FireworkEffect.Type.BALL)
             .trail(true)
             .build();
 
@@ -279,6 +292,7 @@ public final class Performance extends TimerTask {
             case 128:
             case 135:
             case 140:
+                // noinspection DuplicateBranchesInSwitch
                 sync(() -> Utils.randomFirework(center), 120);
                 break;
             case 146:
@@ -295,14 +309,15 @@ public final class Performance extends TimerTask {
                 drawText("of You !");
                 break;
             case 164:
+                // noinspection DuplicateBranchesInSwitch
                 rain(Particle.FIREWORKS_SPARK);
                 break;
             case 168:
                 async(() -> {
                     try {
-                        for (double i = 0; i < 168; i++) {
-                            genHeart(center.clone().add(Math.random() * 120 - 60.0, 20.0, Math.random() * 120 - 60.0), Particle.FLAME);
-                            genHeart(center.clone().add(Math.random() * 120 - 60.0, 20.0, Math.random() * 120 - 60.0), Particle.SOUL_FIRE_FLAME);
+                        for (double i = 0; i < 188; i++) {
+                            genHeart(center.clone().add(Math.random() * 120 - 60.0, 20.0, Math.random() * 120 - 60.0));
+                            genHeart(center.clone().add(Math.random() * 120 - 60.0, 20.0, Math.random() * 120 - 60.0));
                             Thread.sleep(109);
                         }
                         for (double i = 0; i < END * 2; i += Math.PI * 2 / 130) {
@@ -321,13 +336,14 @@ public final class Performance extends TimerTask {
             case 194:
                 async(() -> {
                     try {
+                        final Location loc = center.clone().add(0, 20, 0);
                         for (int j = 0; j < 64; j++) {
                             sync(() -> {
                                 for (double i = 0; i < END; i += Math.PI * 2 / 14) {
                                     double x = Math.cos(i) * 40, z = Math.sin(i) * 40;
                                     Utils.genFirework(center.clone().add(x, 0.0, z), fw1, randomPower());
                                 }
-                                Utils.genFirework(center, fw1Bigger, randomPower());
+                                Utils.genFirework(loc, fw1Bigger, Utils.r.nextInt(3));
                             });
                             Thread.sleep(435);
                         }
@@ -344,7 +360,7 @@ public final class Performance extends TimerTask {
                                 for (double i = 0; i < END; i += Math.PI * 2 / 12) {
                                     double x = Math.cos(i) * 40, z = Math.sin(i) * 40;
                                     Utils.randomFirework(center);
-                                    Utils.genFirework(center.clone().add(x, 0.0, z), Utils.r.nextBoolean() ? fw2Bigger : fw2, randomPower());
+                                    Utils.genFirework(center.clone().add(x, 0.0, z), Utils.r.nextInt(6) == 0 ? fw2Bigger : fw2Ball, randomPower());
                                 }
                             });
                             Thread.sleep(435);
@@ -369,6 +385,7 @@ public final class Performance extends TimerTask {
                 });
                 break;
             case 254:
+                rain(Particle.DRIPPING_OBSIDIAN_TEAR);
                 async(() -> {
                     try {
                         for (int j = 0; j < 110; j++) {
@@ -396,7 +413,7 @@ public final class Performance extends TimerTask {
             case 278:
                 async(() -> {
                     try {
-                        for (int i = 0; i < 100; i++) {
+                        for (int i = 0; i < 120; i++) {
                             final Location loc = center.clone().add(Math.random() * 80 - 40, 10 + Math.random() * 30, Math.random() * 80 - 40);
                             if (Utils.r.nextBoolean()) Curves.sphericalHelix(loc); else Curves.sphericalSinusoid(loc);
                             Thread.sleep(200);
@@ -404,6 +421,18 @@ public final class Performance extends TimerTask {
                     } catch (Exception ignored) {}
                 });
                 break;
+            case 300:
+                drawText("Thank You For");
+                break;
+            case 304:
+                drawText("Watching!");
+                break;
+            case 310:
+                drawText("Happy New Year!");
+                break;
+            case 312:
+                // noinspection DuplicateBranchesInSwitch
+                rain(Particle.FIREWORKS_SPARK);
         }
     }
 
@@ -449,9 +478,10 @@ public final class Performance extends TimerTask {
         }
     }
 
-    private void genHeart(final Location loc, final Particle type) {
+    private void genHeart(final Location loc) {
         final World world = loc.getWorld();
         final double ix = loc.getX(), iy = loc.getY(), iz = loc.getZ();
+        final Particle type = Utils.randomParticleType();
         for (double i = 0.0; i < END; i += 0.005) {
             final double z = Math.cos(i) * 13 - 5 * Math.cos(2 * i) - 2 * Math.cos(3 * i) - Math.cos(4 * i);
             world.spawnParticle(type, ix + Math.pow(Math.sin(i), 3) * 16, iy, iz - z, 0, Utils.randomN(), 2.0, Utils.randomN(), 1.0, null, true);
