@@ -8,7 +8,9 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.java.annotation.command.Commands;
@@ -35,9 +37,19 @@ public final class Main extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(this, this);
     }
 
-    @EventHandler
-    public void onDamage(final EntityDamageEvent e) {
+    @EventHandler(ignoreCancelled = true)
+    public void onEntitySpawn(final EntitySpawnEvent e) {
+        if (e.getEntityType() == EntityType.PHANTOM) e.setCancelled(true);
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onEntityDamage(final EntityDamageEvent e) {
         if (e.getEntityType() == EntityType.PARROT && Birds.NAME.equals(e.getEntity().getCustomName())) e.setCancelled(true);
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onEntityDamageByEntity(final EntityDamageByEntityEvent e) {
+        if (e.getDamager().getType() == EntityType.FIREWORK) e.setCancelled(true);
     }
 
     @SuppressWarnings("NullableProblems")

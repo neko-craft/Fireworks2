@@ -1,5 +1,6 @@
 package cn.apisium.fireworks2;
 
+import com.destroystokyo.paper.Title;
 import org.bukkit.*;
 import org.bukkit.map.MapFont;
 import org.bukkit.map.MinecraftFont;
@@ -115,6 +116,15 @@ public final class Performance extends TimerTask {
     @Override
     public void run() {
         switch (tick++) {
+            case 0:
+                title("§eNekoCraft §7- §e除夕之夜", "§bPresent By: §eShirasawa");
+                break;
+            case 3:
+                title("§7BGM: §eHiyoku No Tori", "§bComposer: §eDark Sun");
+                break;
+            case 6:
+                title("§a表演开始!", "");
+                break;
             case 9:
             case 11:
             case 13:
@@ -424,10 +434,10 @@ public final class Performance extends TimerTask {
             case 300:
                 drawText("Thank You For");
                 break;
-            case 304:
+            case 303:
                 drawText("Watching!");
                 break;
-            case 310:
+            case 306:
                 drawText("Happy New Year!");
                 break;
             case 312:
@@ -486,5 +496,10 @@ public final class Performance extends TimerTask {
             final double z = Math.cos(i) * 13 - 5 * Math.cos(2 * i) - 2 * Math.cos(3 * i) - Math.cos(4 * i);
             world.spawnParticle(type, ix + Math.pow(Math.sin(i), 3) * 16, iy, iz - z, 0, Utils.randomN(), 2.0, Utils.randomN(), 1.0, null, true);
         }
+    }
+
+    private void title(final String title, final String sub) {
+        final Title tmp = new Title(title, sub, 10, 40, 10);
+        center.getWorld().getPlayers().forEach(it -> it.sendTitle(tmp));
     }
 }
