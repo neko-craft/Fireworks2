@@ -61,6 +61,8 @@ public final class Performance extends TimerTask {
             .withFade(Color.BLUE)
             .withColor(Color.AQUA)
             .withFade(Color.BLUE)
+            .withColor(Color.AQUA)
+            .withFade(Color.BLUE)
             .with(FireworkEffect.Type.BURST)
             .trail(false)
             .build();
@@ -325,12 +327,12 @@ public final class Performance extends TimerTask {
             case 168:
                 async(() -> {
                     try {
-                        for (double i = 0; i < 188; i++) {
+                        for (double i = 0; i < 194; i++) {
                             genHeart(center.clone().add(Math.random() * 120 - 60.0, 20.0, Math.random() * 120 - 60.0));
                             genHeart(center.clone().add(Math.random() * 120 - 60.0, 20.0, Math.random() * 120 - 60.0));
                             Thread.sleep(109);
                         }
-                        for (double i = 0; i < END * 2; i += Math.PI * 2 / 130) {
+                        for (double i = 0; i < END * 4; i += Math.PI * 2 / 130) {
                             double x = Math.cos(i) * 50, z = Math.sin(i) * 50, x1 = Math.cos(END - i) * 50, z1 = Math.sin(END - i) * 50;
                             sync(() -> {
                                 Utils.genFirework(center.clone().add(x, 5.0, z), fw5, randomPower());
@@ -431,10 +433,10 @@ public final class Performance extends TimerTask {
                     } catch (Exception ignored) {}
                 });
                 break;
-            case 300:
+            case 298:
                 drawText("Thank You For");
                 break;
-            case 303:
+            case 302:
                 drawText("Watching!");
                 break;
             case 306:
