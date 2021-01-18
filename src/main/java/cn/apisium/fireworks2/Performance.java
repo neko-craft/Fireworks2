@@ -125,7 +125,7 @@ public final class Performance extends TimerTask {
                 title("§7BGM: §eHiyoku No Tori", "§bComposer: §eDark Sun");
                 break;
             case 6:
-                title("§a表演开始!", "");
+                title("§a请您欣赏!", "");
                 break;
             case 9:
             case 11:
@@ -307,11 +307,11 @@ public final class Performance extends TimerTask {
                 // noinspection DuplicateBranchesInSwitch
                 sync(() -> Utils.randomFirework(center), 120);
                 break;
-            case 146:
+            case 144:
                 async(() -> Curves.cylindricSineWave(center.clone().add(0, 10, 0)));
                 drawText("NekoCraft");
                 break;
-            case 150:
+            case 149:
                 drawText("is Wonderful");
                 break;
             case 154:
@@ -327,12 +327,12 @@ public final class Performance extends TimerTask {
             case 168:
                 async(() -> {
                     try {
-                        for (double i = 0; i < 194; i++) {
+                        for (double i = 0; i < 200; i++) {
                             genHeart(center.clone().add(Math.random() * 120 - 60.0, 20.0, Math.random() * 120 - 60.0));
                             genHeart(center.clone().add(Math.random() * 120 - 60.0, 20.0, Math.random() * 120 - 60.0));
                             Thread.sleep(109);
                         }
-                        for (double i = 0; i < END * 4; i += Math.PI * 2 / 130) {
+                        for (double i = 0; i < END * 7; i += Math.PI * 2 / 130) {
                             double x = Math.cos(i) * 50, z = Math.sin(i) * 50, x1 = Math.cos(END - i) * 50, z1 = Math.sin(END - i) * 50;
                             sync(() -> {
                                 Utils.genFirework(center.clone().add(x, 5.0, z), fw5, randomPower());
@@ -475,16 +475,12 @@ public final class Performance extends TimerTask {
         Location loc = center.clone().add(0, 70, 0);
         for (final char ch : str.toCharArray()) {
             MapFont.CharacterSprite cs = arr[i++] = MinecraftFont.Font.getChar(ch);
-            loc.setX(loc.getX() + cs.getHeight() / 2.0);
+            loc.setX(loc.getX() + cs.getWidth() / 2.0 + 1);
         }
         final World world = center.getWorld();
         for (final MapFont.CharacterSprite it : arr) {
-            for (int y = 0, h = it.getHeight(); y < h; y++) for (int x = 0, w = it.getWidth(); x < w; x++) {
-                if (it.get(y, x)) {
-                    final Location l = loc.clone().add(-(x + len), 0.0, y);
-                    world.spawnParticle(Particle.FALLING_OBSIDIAN_TEAR, l, 150, 0.3, 0.0, 0.3, 1.0, null, true);
-                    world.spawnParticle(Particle.END_ROD, l, 0, 0, 0, 0, 1.0, null, true);
-                }
+            for (int y = 0, h = it.getHeight(); y < h; y++) for (int x = 0, w = it.getWidth(); x < w; x++) if (it.get(y, x)) {
+                world.spawnParticle(Particle.FALLING_OBSIDIAN_TEAR, loc.clone().add(-(x + len), 0.0, y), 150, 0.3, 0.0, 0.3, 1.0, null, true);
             }
             len += it.getWidth() + 2;
         }
