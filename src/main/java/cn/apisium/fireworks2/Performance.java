@@ -329,6 +329,7 @@ public final class Performance extends TimerTask {
                     try {
                         for (double i = 0; i < 200; i++) {
                             genHeart(center.clone().add(Math.random() * 120 - 60.0, 20.0, Math.random() * 120 - 60.0));
+                            genHeart(center.clone().add(Math.random() * 120 - 60.0, 20.0, Math.random() * 120 - 60.0));
                             Thread.sleep(109);
                         }
                         for (double i = 0; i < END * 7; i += Math.PI * 2 / 130) {
@@ -426,7 +427,7 @@ public final class Performance extends TimerTask {
                     try {
                         for (int i = 0; i < 120; i++) {
                             final Location loc = center.clone().add(Math.random() * 80 - 40, 10 + Math.random() * 30, Math.random() * 80 - 40);
-                            if (Utils.r.nextInt(3) == 0) if (Utils.r.nextBoolean()) Curves.sphericalHelix(loc); else Curves.sphericalSinusoid(loc);
+                            if (Utils.r.nextBoolean()) Curves.sphericalHelix(loc); else Curves.sphericalSinusoid(loc);
                             Thread.sleep(200);
                         }
                     } catch (Exception ignored) {}
